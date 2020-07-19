@@ -11,11 +11,14 @@ class Cat_Trainer:
         self.loss = lrloss
 
     def accuracy(self, data):
-        #calculating number of correct predictions  out of total data by giving 1 if predicted value and label value are same,summing up all the correcting prediction and dividing by total data
-        #next(iter(data)) gives the dataset ,x is input vector and y is label 0 0r 1.if predicted value of model is equal to actual label
+        #calculating number of correct predictions out of total data by giving 1 if predicted value and label value are the same
+        #sum all the correct predictions and divide by total data length
+        #next(iter(data)) gives the dataset, x is the input vector and y is the corect label, 0 or 1. if predicted value of model is equal to actual label
         #then append 1 to list. sum all these 1 to get numbe of correct predictions out of all the predictions.to get accuracy divide
         #the total number of correct predictions by total data length ,to get percentage multiply with 100.
         return 100*float(sum([1 for x, y in next(iter(data)) if self.model.predict(x) == y]))/float(len(data))
+        #return 100*np.mean([1 if self.model.predict(x) == y else 0 for x, y in data])
+    
 
     def train(self, lr, ne):
         
@@ -36,7 +39,6 @@ class Cat_Trainer:
                 #yhat is the predicted value for  the given x vector
                 yhat = self.model(x)
                 #calling lr loss by passing predicted value and actual value and summing up total loss for entire data 
-                #J+=self.loss(self.model.predict(x),y)
                 J+=self.loss(yhat,y)
                 #changing the model weights to based the difference between actual and predicted value
                 self.model.w += lr*(y-yhat)*x

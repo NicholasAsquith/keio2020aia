@@ -12,14 +12,14 @@ class Cat_Data:
         #loading the pickle file
         with open(filepath, 'rb') as f:
             dat = pkl.load(f)
-        #loading the train data into dat based on the key 'train' from the pickle file    
+        #loading the training data into a new list based on the key 'train' from the pickle file    
         dat=dat["train"]
-        #flatenning the 3d image data into a 1d vector and labelling values 'no_cat' as 0 and 'cat' as 1
-        k=["no_cat","cat"] #create an empty list K: [cat, no cat]
+        #standardizing and flattening the 3d image data into a 1d vector and labelling the values 'no_cat' and 'cat' as 0 and 1 respectively
+        k=["no_cat","cat"] #creates an empty list K: [cat, no cat]
         for i in k: #loop over each element in list K
-            for j in dat[i]: #Loop over each index of the dat list, i.e., no_cat, cat
-                if i=="no_cat": #For every no_cat value
-                    j=self.standardize(j) #standardize the values
+            for j in dat[i]: #for each element in list K, loop over each index of the dat list, i.e., no_cat, cat:
+                if i=="no_cat": #For every no_cat index
+                    j=self.standardize(j) #standardize the values, save them as j
                     s=j.flatten().tolist() #flatten the dimensions to make a 1-d vector & return a copy of the array data as a nested python list, i.e. 28x3
                     self.data.append([s,0]) #save this to the training data with the key 0
                 else: #Same logic for every cat value 

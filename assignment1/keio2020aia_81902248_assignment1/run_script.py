@@ -10,17 +10,18 @@ from cats.cat_trainer import *
 ##
 def main():
     #sonar model
-  #loading the data into dcx from pickle file by calling Sonar_Data with datapath as parameter
+  #loading the data into dcx from pickle file by calling Sonar_Data with datapath as the default parameter
   Data=Sonar_Data()
-  #calling Sonar_model class with input dimension and actiavtion function,the variable dimension is assigned with length of input vector
+  #calling Sonar_model class with input dimension and activation function,the variable dimension is assigned as the length of the input vector
   model =Sonar_Model(dimension=len([next(iter(Data))][0][0][0]), activation=perceptron)
-  #calling Sonar_Trainer class with data and model ,the first parameter is the data which is converted from object into numpy array
+  #calling Sonar_Trainer class with data and model ,the first parameter is the data which is converted into a numpy array
   trainer = Sonar_Trainer(next(iter(Data)), model)
-  #As train from trainer returns cost and accuracies  and storing it into variables.and parameters to train as learing rate and number of epochs
+  #Storing the cost and accuracies from trainer.train, hyperparameters for learning rate and epoch are set here
   costs, accuracies =trainer.train(0.1, 500)#(learning rate and epochs)
   #saving the model into pickle file
   model.save_model()
- #cat model
+ 
+    #cat model
   Data=Cat_Data()
   model =Cat_Model(dimension=len([next(iter(Data))][0][0][0]), activation=sigmoid)
   trainer = Cat_Trainer(Data, model)

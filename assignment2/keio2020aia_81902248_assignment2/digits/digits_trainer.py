@@ -19,7 +19,7 @@ class Digits_Trainer:
         acc=0
         #self.model(x) gives the predicted values for a given batch of inputs. y is the 1-hot encoded target vector.
         #E.g., pred is [1,5,9] and y is [[0,0,0,0,1,0,0,0],[0,1,0,0,0,0,0],[...]]
-        #calculating accuracy for each batch and summing up for all batches
+        #calculating accuracy for each batch and summing up accuracy over all batches
         for x, y in dat:
             pred=self.model(x)
             acc+= 100*float(sum([1 for i in range(len(pred)) if pred[i] == np.argmax(y[i],axis=0)])/float(len(pred)))  
