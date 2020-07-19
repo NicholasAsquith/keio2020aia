@@ -11,14 +11,14 @@ class Digits_Trainer:
     def accuracy(self):
 
         acc = None
-        #appending whole data i,e 60000 training data to dat.for calculating accuracy on entire data.when self.dataset is called a batch of 938 values from whole data is returned
+        #appending total training data length, i,e 60000 points, to dat for calculating the accuracy on the entire data set, data
         dat=[]
-        for data in self.dataset:
+        for data in self.dataset: #when self.dataset is called a batch of 938 values from the entire dataset is returned
             dat.append([data['inputs'],data['targets']])
                
         acc=0
-        #self.model(x) gives predicted values for batch of inputs.y is target vector.
-        #Example: pred is [1,5,9] and y is [[0,0,0,0,1,0,0,0],[0,1,0,0,0,0,0],[...]]
+        #self.model(x) gives the predicted values for a given batch of inputs. y is the 1-hot encoded target vector.
+        #E.g., pred is [1,5,9] and y is [[0,0,0,0,1,0,0,0],[0,1,0,0,0,0,0],[...]]
         #calculating accuracy for each batch and summing up for all batches
         for x, y in dat:
             pred=self.model(x)
@@ -48,14 +48,14 @@ class Digits_Trainer:
 
             for batch in self.dataset:
                 predicted = None
-                #model.forward gives predicted values of the model
+                #model.forward will return predicted values of the model
                 predicted=self.model.forward(np.array(batch['inputs']))
-                #cross entropy loss is called with predicted values of the model and batch target values and summing up loss for all the batches in epoch
+                #cross entropy loss is called with predicted values of the model and batch target values. Loss is summed across all the batches in this epoch
                 epoch_loss+=self.loss.loss(predicted,np.array(batch['targets']))
                 # hint: use the model to generate predictions (digit labels) for a batch, and then use the loss given in the constructor to update the epoch_loss variable
                 
                 grad = None
-                #gradient is called with predicted values of the model and batch targets
+                #the gradient is called with predicted values of the model and batch targets
                 grad=self.loss.grad(predicted,np.array(batch['targets'])) 
                 # hint: compute the gradient of the loss with respect to its inputs (not the model inputs - watch the lecture video for explanation)
                

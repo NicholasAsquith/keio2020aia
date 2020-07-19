@@ -39,12 +39,12 @@ class Digits_Data:
             self.index = -1
             self.shuffle()
             raise StopIteration
-        #self.starts gives us random 938 values from (0 to 60000) i,e  60000 points in our training data are split into 64 batches which is 938   
+        #self.starts gives us a random set of 938 values from (0 to 60000) i,e  60000 points in our training data are split into 64 batches, or, 938   
         inputs = None
         targets = None
         batch=[]
         tar=[]
-        #based on values from self.starts,the data is split into batches of size 938 points. This batch is called when the _next_ method is called.
+        #based on the values from self.starts, the data is split into batches of size 938 points. This batch is called when the _next_ method is called.
         for index in self.starts:
             batch.append(self.samples[index][0])
             tar.append(self.samples[index][1])
